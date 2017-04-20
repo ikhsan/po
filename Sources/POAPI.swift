@@ -1,0 +1,58 @@
+import Foundation
+import SwiftyJSON
+
+struct POError : Error {
+    let message: String
+}
+
+enum POEndpoint {
+    case users
+    case user(userId: String)
+    case orders(userId: String)
+
+    var url: String {
+        switch self {
+        case .users:
+            return "users"
+        case .user(let userId):
+            return "users/\(userId)"
+        case .orders(let userId):
+            return "orders/\(userId)"
+        }
+    }
+}
+
+struct POAPI {
+
+    let baseUrl = "https://po-uk-5717b.firebaseio.com/"
+    let session = URLSession.shared
+
+    private func buildRequest(_ endpoint: POEndpoint) throws -> URLRequest {
+        guard let components = URLComponents(string: baseUrl + endpoint.url + ".json"), let url = components.url else {
+            throw POError(message: "Path is not available")
+        }
+        return URLRequest(url: url)
+    }
+
+    private func makeRequest(_ request: URLRequest) throws -> JSON {
+        let (optionalData, _, _) = session.synchronousDataTask(with: request)
+        guard let data = optionalData else {
+            throw POError(message: "Path is not available")
+        }
+        return JSON(data: data)
+    }
+
+    func get(_ endpoint: POEndpoint) throws -> JSON {
+        let request = try buildRequest(endpoint)
+        return try makeRequest(request)
+    }
+
+    func post(_ endpoint: POEndpoint, body: JSON) throws -> JSON {
+        var request = try buildRequest(endpoint)
+        request.httpMethod = "POST"
+        request.httpBody = try body.rawData()
+
+        return try makeRequest(request)
+    }
+
+}
