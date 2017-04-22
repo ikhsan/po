@@ -34,8 +34,8 @@
     {
       "package": "KituraStencil",
       "reason": null,
-      "repositoryURL": "https://github.com/IBM-Swift/Kitura-StencilTemplateEngine.git",
-      "version": "1.8.0"
+      "repositoryURL": "https://github.com/ikhsan/Kitura-StencilTemplateEngine.git",
+      "version": "1.9.0"
     },
     {
       "package": "LoggerAPI",
@@ -71,7 +71,7 @@
       "package": "Stencil",
       "reason": null,
       "repositoryURL": "https://github.com/kylef/Stencil",
-      "version": "0.8.0"
+      "version": "0.9.0"
     },
     {
       "package": "SwiftyJSON",
