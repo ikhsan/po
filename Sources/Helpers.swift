@@ -1,4 +1,7 @@
 import Foundation
+#if os(Linux)
+import Dispatch
+#endif
 
 func portFromEnv() -> Int? {
     guard let envPort = ProcessInfo.processInfo.environment["PORT"] else { return nil }

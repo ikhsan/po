@@ -1,7 +1,8 @@
 import Foundation
 import SwiftyJSON
+import KituraNet
 
-struct POError : Error {
+struct POError : Swift.Error {
     let message: String
 }
 
