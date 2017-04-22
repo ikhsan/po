@@ -24,8 +24,8 @@ enum POEndpoint {
 
 struct POAPI {
 
-    let baseUrl = "https://po-uk-5717b.firebaseio.com/"
-    let session = URLSession.shared
+    private let baseUrl = "https://po-uk-5717b.firebaseio.com/"
+    private let session = URLSession.shared
 
     private func buildRequest(_ endpoint: POEndpoint) throws -> URLRequest {
         guard let components = URLComponents(string: baseUrl + endpoint.url + ".json"), let url = components.url else {
@@ -42,12 +42,12 @@ struct POAPI {
         return JSON(data: data)
     }
 
-    func get(_ endpoint: POEndpoint) throws -> JSON {
+    public func get(_ endpoint: POEndpoint) throws -> JSON {
         let request = try buildRequest(endpoint)
         return try makeRequest(request)
     }
 
-    func post(_ endpoint: POEndpoint, body: JSON) throws -> JSON {
+    public func post(_ endpoint: POEndpoint, body: JSON) throws -> JSON {
         var request = try buildRequest(endpoint)
         request.httpMethod = "POST"
         request.httpBody = try body.rawData()
@@ -56,3 +56,4 @@ struct POAPI {
     }
 
 }
+

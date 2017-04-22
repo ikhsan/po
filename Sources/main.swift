@@ -1,38 +1,32 @@
-//import Kitura
-//import HeliumLogger
-//
-//HeliumLogger.use()
-//
-//let router = Router()
-//router.get("/") { request, response, next in
-//    response.send("Hello!")
-//    next()
-//}
-//
-//router.get("/admin") { request, response, next in
-//    response.send("Hello admin..")
-//    next()
-//}
-//
-//let port = portFromEnv() ?? 8080
-//Kitura.addHTTPServer(onPort: port, with: router)
-//Kitura.run()
+import Kitura
+import KituraStencil
+import HeliumLogger
 
-print("--- Yeah ----")
+HeliumLogger.use()
 
-let poApi = POAPI()
+let api = POAPI()
+let userController = UserController(api: api)
 
-do {
-    let userResponse = try poApi.get(.users)
-    let users = Array(userResponse.dictionaryValue.values)
-    let xxx = users.map(User.init(json:))
-    print(xxx)
 
-//    let user = User(name: "Ikhsan", phone: "071234567", email: "ikhsan@test.com")
-//    let xxx = try poApi.post(.users, body: user.json)
-//    print(xxx["name"].stringValue)
 
-} catch {
-    print("🤕")
+let router = Router()
+
+router.all("/", middleware: StaticFileServer())
+router.add(templateEngine: StencilTemplateEngine())
+
+router.get("/") { request, response, next in
+    try response.render("admin.stencil", context: [:])
+    next()
 }
 
+
+router.get("/customers") { request, response, next in
+    let users = try userController.getAllUser()
+    let context = [ "users" : users ]
+    try response.render("customers.stencil", context: context)
+    next()
+}
+
+let port = portFromEnv() ?? 8080
+Kitura.addHTTPServer(onPort: port, with: router)
+Kitura.run()

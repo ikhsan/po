@@ -1,0 +1,113 @@
+
+/* -- Global -- */
+
+body, html {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: sans-serif;
+    color: #333;
+    position: relative;
+    font-family: -apple-system, 'Helvetica';
+    font-weight: 500;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+a:hover {
+    background-color: #c1cae1;
+}
+
+.site {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+/* -- Header -- */
+
+header {
+    background-color: #394d82;
+    color: #fff;
+}
+
+header .title {
+    padding: 0.8em 1.5em 1em;
+    margin: 0;
+}
+
+header .title a {
+    color: #fff;
+}
+
+
+/* -- Main -- */
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.content main a {
+    text-decoration: underline;
+}
+
+.content > nav {
+    margin: 0;
+    padding: 0 1.5em;
+    flex: 0 0 12em;
+}
+
+.content > nav > ul {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+.content > nav > ul > li {
+    padding-bottom: 0.5em;
+}
+
+
+.content > main {
+    padding: 0 1.5em;
+    flex: 1;
+}
+
+.content > main .title {
+    margin-top: 0;
+}
+
+@media screen and (min-width: 768px) {
+    .content {
+        flex: 1;
+        flex-direction: row;
+    }
+
+    .content > main .title {
+        margin-top: 0.83em;
+    }
+}
+
+
+
+/* -- Footer -- */
+
+footer {
+    color: #fff;
+    background-color: #394d82;
+}
+
+footer p.copyright {
+    padding: 1.5em;
+    margin: 0;
+}
+
+footer a {
+    color: #fff;
+}

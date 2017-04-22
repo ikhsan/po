@@ -1,20 +1,22 @@
 import Foundation
 import SwiftyJSON
 
-struct User {
+public struct User {
+    let id: String
     let name: String
     let phone: String
     let email: String
 }
 
 extension User {
-    init(json: JSON) {
+    public init(id: String, json: JSON) {
+        self.id = id
         self.name = json["name"].stringValue
         self.phone = json["phone"].stringValue
         self.email = json["email"].stringValue
     }
 
-    var json: JSON {
+    public var json: JSON {
         return [
             "name": self.name,
             "phone": self.phone,
