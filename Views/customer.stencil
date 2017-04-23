@@ -8,6 +8,9 @@
     <li />Id: {{ user.id }}
     <li />Email: {{ user.email }}
     <li />Phone: {{ user.phone }}
-    <li /><a href="#">Orders by {{ user.name }}</a>
+</ul>
+<h4>Menu</h4>
+<ul>
+    <li /><a href="#">Orders</a>
 </ul>
 {% endblock %}

@@ -1,7 +1,36 @@
 {% extends "base.html" %}
 
-{% block title %}Admin{% endblock %}
+{% block title %}Features{% endblock %}
 
 {% block content %}
-Hello boss...
+
+<h3>Customers</h3>
+<ul>
+    <li />List ✔️
+    <li />Add ✔️
+    <li />Edit
+    <li />Delete
+</ul>
+
+
+<h3>Orders</h3>
+<ul>
+    <li />List all
+    <li />List by user
+    <li />List by campaign
+    <li />Add
+    <li />Edit
+    <li />Delete
+</ul>
+
+
+<h3>Batches</h3>
+<ul>
+    <li />List
+    <li />Add
+    <li />Edit
+    <li />Delete
+</ul>
+
+
 {% endblock %}
