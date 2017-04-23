@@ -10,7 +10,7 @@ public struct UserController {
 
     public func getAllUser() throws -> [User] {
         guard let usersDictionary = try api.get(.users).dictionary else { return [] }
-        let usersJson: [JSON] = usersDictionary.reduce([]) { $0 + [ JSON(dictionaryLiteral: ($1.key, $1.value)) ] }
+        let usersJson: [JSON] = usersDictionary.reduce([]) { $0 + [ JSON([$1.key : $1.value]) ] }
         return usersJson.flatMap(User.parse(json:))
     }
 
