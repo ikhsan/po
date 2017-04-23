@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Customer Detail{% endblock %}
+
+{% block content %}
+<h3>{{ user.name }}</h3>
+<ul>
+    <li />Id: {{ user.id }}
+    <li />Email: {{ user.email }}
+    <li />Phone: {{ user.phone }}
+    <li /><a href="#">Orders by {{ user.name }}</a>
+</ul>
+{% endblock %}

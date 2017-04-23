@@ -3,6 +3,10 @@ import SwiftyJSON
 
 public struct POError : Swift.Error {
     public let message: String
+
+    public init(message: String) {
+        self.message = message
+    }
 }
 
 public enum POEndpoint {

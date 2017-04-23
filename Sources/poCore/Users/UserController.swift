@@ -14,23 +14,19 @@ public struct UserController {
         return usersJson.flatMap(User.parse(json:))
     }
 
+    public func getUser(_ id: String) throws -> User {
+        let userJson = try api.get(.user(userId: id))
+        let json = JSON([ id : userJson ])
 
-    //print("--- Yeah ----")
-    //
-    //let poApi = POAPI()
-    //
-    //do {
-    //    let userResponse = try poApi.get(.users)
-    //    let users = Array(userResponse.dictionaryValue.values)
-    //    let xxx = users.map(User.init(json:))
-    //    print(xxx)
-    //
-    //    let user = User(name: "Ikhsan", phone: "071234567", email: "ikhsan@test.com")
-    //    let xxx = try poApi.post(.users, body: user.json)
-    //    print(xxx["name"].stringValue)
-    //
-    //} catch {
-    //    print("🤕")
-    //}
+        guard let user = User.parse(json: json) else {
+            throw POError(message: "Can't parse user json")
+        }
+
+        return user
+    }
+
+    public func addUser(_ json: JSON) throws -> JSON {
+        return try api.post(.users, body: json)
+    }
 
 }

@@ -3,9 +3,14 @@
 {% block title %}Customers{% endblock %}
 
 {% block content %}
+<p>
+    <a href="/customers/add">Add Customer</a>
+</p>
+
+<h3>Customer List</h3>
 <ul>
     {% for user in users %}
-    <li>{{ user.id }}: {{ user.name }}, {{ user.email }}</li>
+    <li /><a href="/customers/{{ user.id }}">{{ user.name }}, {{ user.email }}</a>
     {% endfor %}
 </ul>
 {% endblock %}
