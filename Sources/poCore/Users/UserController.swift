@@ -1,14 +1,17 @@
 import Foundation
 import SwiftyJSON
 
-struct UserController {
+public struct UserController {
 
     let api: POAPI
+    public init(api: POAPI) {
+        self.api = api
+    }
 
-    func getAllUser() throws -> [User] {
-        let userDictionary = try api.get(.users).dictionaryValue
-        let users = userDictionary.map { User(id: $0, json: $1) }
-        return users
+    public func getAllUser() throws -> [User] {
+        guard let usersDictionary = try api.get(.users).dictionary else { return [] }
+        let usersJson: [JSON] = usersDictionary.reduce([]) { $0 + [ JSON(dictionaryLiteral: ($1.key, $1.value)) ] }
+        return usersJson.flatMap(User.parse(json:))
     }
 
 

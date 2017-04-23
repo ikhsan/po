@@ -3,11 +3,6 @@ import Foundation
 import Dispatch
 #endif
 
-func portFromEnv() -> Int? {
-    guard let envPort = ProcessInfo.processInfo.environment["PORT"] else { return nil }
-    return Int(envPort)
-}
-
 extension URLSession {
     func synchronousDataTask(with request: URLRequest) -> (Data?, URLResponse?, Error?) {
         var data: Data?

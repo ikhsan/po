@@ -1,12 +1,11 @@
 import Foundation
 import SwiftyJSON
-import KituraNet
 
-struct POError : Swift.Error {
-    let message: String
+public struct POError : Swift.Error {
+    public let message: String
 }
 
-enum POEndpoint {
+public enum POEndpoint {
     case users
     case user(userId: String)
     case orders(userId: String)
@@ -23,10 +22,12 @@ enum POEndpoint {
     }
 }
 
-struct POAPI {
+public struct POAPI {
 
-    private let baseUrl = "https://po-uk-5717b.firebaseio.com/"
+    private let baseUrl = "https://po-uk-831d0.firebaseio.com/"
     private let session = URLSession(configuration: URLSessionConfiguration.default)
+
+    public init() {}
 
     private func buildRequest(_ endpoint: POEndpoint) throws -> URLRequest {
         guard let components = URLComponents(string: baseUrl + endpoint.url + ".json"), let url = components.url else {
