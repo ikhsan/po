@@ -10,18 +10,18 @@ public struct POError : Swift.Error {
 }
 
 public enum POEndpoint {
-    case users
-    case user(userId: String)
+    case customers
+    case customer(userId: String)
     case orders(userId: String)
 
     var url: String {
         switch self {
-        case .users:
-            return "users"
-        case .user(let userId):
-            return "users/\(userId)"
-        case .orders(let userId):
-            return "orders/\(userId)"
+        case .customers:
+            return "customers"
+        case .customer(let customerId):
+            return "customers/\(customerId)"
+        case .orders(let customerId):
+            return "orders/\(customerId)"
         }
     }
 }

@@ -7,7 +7,7 @@ import poCore
 HeliumLogger.use()
 
 let api = POAPI()
-let userController = UserController(api: api)
+let customerController = CustomerController(api: api)
 
 let router = Router()
 
@@ -19,7 +19,8 @@ router.get("/") { request, response, next in
     next()
 }
 
-router.all("customers", middleware: CustomerRouterFactory.create(userController: userController))
+let customerRouter = CustomerRouterFactory.create(customerController: customerController)
+router.all("customers", middleware: customerRouter)
 
 let port = portFromEnv() ?? 8080
 Kitura.addHTTPServer(onPort: port, with: router)

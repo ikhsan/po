@@ -3,23 +3,23 @@ import SwiftyJSON
 
 public struct CustomerRouterFactory {
 
-    public static func create(userController: UserController) -> Router {
+    public static func create(customerController: CustomerController) -> Router {
         let router = Router()
 
         router.get("/") { request, response, next in
-            let users = try userController.getAllUser()
+            let users = try customerController.getAllCustomer()
             let context = [ "users" : users ]
             try response.render("customers.stencil", context: context)
             next()
         }
 
-        router.get(":userId") { request, response, next in
-            guard let userId = request.parameters["userId"] else {
-                try response.redirect("/customers")
+        router.get("/:customerId") { request, response, next in
+            guard let userId = request.parameters["customerId"] else {
+                try response.redirect("/")
                 return next()
             }
 
-            let user = try userController.getUser(userId)
+            let user = try customerController.getCustomer(userId)
             let context = [ "user" : user ]
             try response.render("customer.stencil", context: context)
             next()
@@ -33,18 +33,18 @@ public struct CustomerRouterFactory {
 
         router.post("add") { request, response, next in
             guard let body = request.body?.asURLEncoded else {
-                try response.redirect("/customers")
+                try response.redirect("/")
                 return next()
             }
 
             let json = JSON(body)
-            let result = try userController.addUser(json)
+            let result = try customerController.addCustomer(json)
 
             if let id = result["name"].string {
                 print("\(id) user has been created")
             }
 
-            try response.redirect("/customers")
+            try response.redirect("/")
             next()
         }
 

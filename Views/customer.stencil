@@ -6,7 +6,6 @@
 <h3>{{ user.name }}</h3>
 <ul>
     <li />Id: {{ user.id }}
-    <li />Email: {{ user.email }}
     <li />Phone: {{ user.phone }}
 </ul>
 <h4>Menu</h4>
