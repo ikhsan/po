@@ -17,7 +17,7 @@ public struct CustomerController {
     }
 
     public func getCustomer(_ id: String) throws -> Customer {
-        let customerJson = try api.get(.customer(userId: id))
+        let customerJson = try api.get(.customer(customerId: id))
         let json = JSON([ id : customerJson ])
 
         guard let user = Customer.parse(json: json) else {
@@ -32,10 +32,6 @@ public struct CustomerController {
         let customerId = result["name"].stringValue
         print("customer with id:\(customerId) has been created")
         return customerId
-    }
-
-    public func addCustomer(_ json: JSON) throws -> JSON {
-        return try api.post(.customers, body: json)
     }
 
 }

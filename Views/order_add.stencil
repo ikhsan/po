@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Add Order by {{ customer.name }}{% endblock %}
+
+{% block content %}
+<p>
+<a href="/orders/customer/{{ customer.id }}">All Orders by {{ customer.name }}</a>
+</p>
+
+<h3>Add New Order</h3>
+<form action="/orders/customer/{{ customer.id }}/add" method="post">
+<input type="text" name="productName" placeholder="Product Name" /><br>
+<input type="text" name="quantity" placeholder="Quantity" /><br>
+<input type="text" name="buyPrice" placeholder="Buy Price (in £)" /><br>
+<input type="text" name="sellPrice" placeholder="Sell Price (in Rp)" /><br>
+<input type="checkbox" name="isOrdered" value="true"/>Is Ordered?<br>
+<input type="checkbox" name="isDelivered" value="true"/>Is Delivered?<br>
+<input type="submit" value="Add">
+</form>
+{% endblock %}
