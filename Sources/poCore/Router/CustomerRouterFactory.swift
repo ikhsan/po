@@ -13,18 +13,6 @@ public struct CustomerRouterFactory {
             next()
         }
 
-        router.get("/:customerId") { request, response, next in
-            guard let userId = request.parameters["customerId"] else {
-                try response.redirect("/")
-                return next()
-            }
-
-            let user = try customerController.getCustomer(userId)
-            let context = [ "user" : user ]
-            try response.render("customer.stencil", context: context)
-            next()
-        }
-
         router.all("add", middleware: BodyParser())
         router.get("add") { request, response, next in
             try response.render("customers_add.stencil", context: [:])
@@ -45,6 +33,18 @@ public struct CustomerRouterFactory {
             }
 
             try response.redirect("/")
+            next()
+        }
+
+        router.get("/:customerId") { request, response, next in
+            guard let userId = request.parameters["customerId"] else {
+                try response.redirect("/")
+                return next()
+            }
+
+            let user = try customerController.getCustomer(userId)
+            let context = [ "user" : user ]
+            try response.render("customer.stencil", context: context)
             next()
         }
 
