@@ -9,8 +9,8 @@
 
 <h3>Customer List</h3>
 <ul>
-    {% for user in users %}
-    <li /><a href="/customers/{{ user.id }}">{{ user.name }}</a>
+    {% for customer in customers %}
+    <li /><a href="/customers/{{ customer.id }}">{{ customer.name }}</a>
     {% endfor %}
 </ul>
 {% endblock %}

@@ -26,5 +26,12 @@ extension Customer {
 
         return Customer(id: key, name: name, phone: phone)
     }
+
+    public var json: JSON {
+        return JSON([
+            "name": name,
+            "phone": phone,
+        ])
+    }
     
 }

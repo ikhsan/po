@@ -7,8 +7,8 @@ public struct CustomerRouterFactory {
         let router = Router()
 
         router.get("/") { request, response, next in
-            let users = try customerController.getAllCustomer()
-            let context = [ "users" : users ]
+            let customers = try customerController.getAllCustomer()
+            let context = [ "customers" : customers ]
             try response.render("customers.stencil", context: context)
             next()
         }
@@ -20,30 +20,30 @@ public struct CustomerRouterFactory {
         }
 
         router.post("add") { request, response, next in
-            guard let body = request.body?.asURLEncoded else {
-                try response.redirect("/")
+            guard
+                let body = request.body?.asURLEncoded,
+                let name = body["name"],
+                let phone = body["phone"]
+            else {
+                try response.redirect("/customers")
                 return next()
             }
 
-            let json = JSON(body)
-            let result = try customerController.addCustomer(json)
+            let customer = Customer(id: "", name: name, phone: phone)
+            _ = try customerController.addCustomer(customer)
 
-            if let id = result["name"].string {
-                print("\(id) user has been created")
-            }
-
-            try response.redirect("/")
+            try response.redirect("/customers")
             next()
         }
 
         router.get("/:customerId") { request, response, next in
-            guard let userId = request.parameters["customerId"] else {
+            guard let customerId = request.parameters["customerId"] else {
                 try response.redirect("/")
                 return next()
             }
 
-            let user = try customerController.getCustomer(userId)
-            let context = [ "user" : user ]
+            let customer = try customerController.getCustomer(customerId)
+            let context = [ "customer" : customer ]
             try response.render("customer.stencil", context: context)
             next()
         }
