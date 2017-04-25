@@ -9,7 +9,7 @@
     <li />List ✔️
     <li />Add ✔️
     <li />Edit
-    <li />Delete
+    <li />Delete ✔️
 </ul>
 
 
@@ -17,7 +17,7 @@
 <ul>
     <li />List all
     <li />List by user ✔️
-    <li />List by campaign
+    <li />List by batches
     <li />Add ✔️
     <li />Edit
     <li />Delete

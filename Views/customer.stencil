@@ -4,12 +4,23 @@
 
 {% block content %}
 <h3>{{ customer.name }}</h3>
+<p>Phone: {{ customer.phone }}</p>
+<h3>Orders</h3>
+<p>
+    <a href="/orders/customer/{{ customer.id }}/add">Add Order</a>
+</p>
 <ul>
-    <li />Id: {{ customer.id }}
-    <li />Phone: {{ customer.phone }}
+{% for order in orders %}
+<li>
+<div class="order">
+<h4>{{ order.productName }}</h4>
+    <div>Quantity: {{ order.quantity }}</div>
+    <div>Buy price: £{{ order.buyPrice }}</div>
+    <div>Sell price: Rp{{ order.sellPrice }}</div>
+    <div>Ordered: {{ order.isOrdered }}</div>
+    <div>Delivered: {{ order.isDelivered }}</div>
+</div>
+{% endfor %}
 </ul>
-<h4>Menu</h4>
-<ul>
-    <li /><a href="/orders/customer/{{ customer.id }}">Orders</a>
-</ul>
+</h4>
 {% endblock %}

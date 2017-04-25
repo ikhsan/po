@@ -34,4 +34,9 @@ public struct CustomerController {
         return customerId
     }
 
+    public func deleteCustomer(_ customerId: String) throws -> String {
+        let result = try api.delete(.customer(customerId: customerId))
+        return result.rawString() ?? ""
+    }
+
 }

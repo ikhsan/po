@@ -61,5 +61,11 @@ public struct POAPI {
         return try makeRequest(request)
     }
 
+    public func delete(_ endpoint: POEndpoint) throws -> JSON {
+        var request = try buildRequest(endpoint)
+        request.httpMethod = "DELETE"
+        return try makeRequest(request)
+    }
+
 }
 

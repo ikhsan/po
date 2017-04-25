@@ -27,6 +27,7 @@ public struct Order {
         self.isOrdered = isOrdered
         self.isDelivered = isDelivered
     }
+
 }
 
 extension Order: Equatable {}
@@ -51,7 +52,6 @@ extension Order {
         order.sellPrice = orderJson["sellPrice"].double ?? order.sellPrice
         order.isOrdered = orderJson["isOrdered"].bool ?? order.isOrdered
         order.isDelivered = orderJson["isDelivered"].bool ?? order.isDelivered
-
         return order
     }
 

@@ -1,16 +1,7 @@
 {% extends "base.html" %}
 
-{% block title %}Orders by {{ customer.name }}{% endblock %}
+{% block title %}Orders {% endblock %}
 
 {% block content %}
-<p>
-<a href="/orders/customer/{{ customer.id }}/add">Add Order</a>
-</p>
-
-<h3>Order List</h3>
-<ul>
-{% for order in orders %}
-<li /><a href="#">{{ order.productName }} x {{ order.quantity }}, £{{ order.buyPrice }}, Rp.{{ order.sellPrice }}, ordered? {{ order.isOrdered }}, delivered? {{ order.isDelivered }}</a>
-{% endfor %}
-</ul>
+<div>Yo...</div>
 {% endblock %}

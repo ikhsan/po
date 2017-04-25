@@ -64,7 +64,7 @@ public struct OrderRouterFactory {
 
             _ = try orderController.addOrder(order, forCustomerId: customerId)
 
-            try response.redirect("/orders/customer/\(customerId)")
+            try response.redirect("/customers/\(customerId)")
             next()
         }
 

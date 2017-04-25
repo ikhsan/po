@@ -4,7 +4,7 @@
 
 {% block content %}
 <p>
-<a href="/orders/customer/{{ customer.id }}">All Orders by {{ customer.name }}</a>
+<a href="/customers/{{ customer.id }}">All Orders by {{ customer.name }}</a>
 </p>
 
 <h3>Add New Order</h3>

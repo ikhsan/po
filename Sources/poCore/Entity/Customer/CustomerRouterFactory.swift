@@ -3,7 +3,7 @@ import SwiftyJSON
 
 public struct CustomerRouterFactory {
 
-    public static func create(customerController: CustomerController) -> Router {
+    public static func create(customerController: CustomerController, orderController: OrderController) -> Router {
         let router = Router()
 
         router.get("/") { request, response, next in
@@ -43,8 +43,24 @@ public struct CustomerRouterFactory {
             }
 
             let customer = try customerController.getCustomer(customerId)
-            let context = [ "customer" : customer ]
-            try response.render("customer.stencil", context: context)
+            let orders = try orderController.getOrders(forCustomerId: customerId)
+            try response.render("customer.stencil", context:[
+                "customer" : customer,
+                "orders" : orders
+            ])
+            next()
+        }
+
+        router.get("delete/:customerId") { request, response, next in
+            guard let customerId = request.parameters["customerId"] else {
+                try response.redirect("/")
+                return next()
+            }
+
+            let result = try customerController.deleteCustomer(customerId)
+            print("Response deletion: \(result)")
+
+            try response.redirect("/customers")
             next()
         }
 

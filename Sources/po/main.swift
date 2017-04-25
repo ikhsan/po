@@ -20,10 +20,16 @@ router.get("/") { request, response, next in
     next()
 }
 
-let customerRouter = CustomerRouterFactory.create(customerController: customerController)
+let customerRouter = CustomerRouterFactory.create(
+    customerController: customerController,
+    orderController: orderController
+)
 router.all("customers", middleware: customerRouter)
 
-let orderRouter = OrderRouterFactory.create(orderController: orderController, customerController: customerController)
+let orderRouter = OrderRouterFactory.create(
+    orderController: orderController,
+    customerController: customerController
+)
 router.all("orders", middleware: orderRouter)
 
 let port = portFromEnv() ?? 8080
