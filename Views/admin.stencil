@@ -4,33 +4,18 @@
 
 {% block content %}
 
-<h3>Customers</h3>
+<h3>Order</h3>
 <ul>
     <li />List ✔️
-    <li />Add ✔️
-    <li />Edit
-    <li />Delete ✔️
+    <li />Summary
 </ul>
 
-
-<h3>Orders</h3>
-<ul>
-    <li />List all
-    <li />List by user ✔️
-    <li />List by batches
-    <li />Add ✔️
-    <li />Edit
-    <li />Delete
-</ul>
-
-
-<h3>Batches</h3>
+<h3>Customer</h3>
 <ul>
     <li />List
-    <li />Add
-    <li />Edit
-    <li />Delete
+    <li />Detail
+    <li />Share detail
+    <li />Edit status
 </ul>
-
 
 {% endblock %}

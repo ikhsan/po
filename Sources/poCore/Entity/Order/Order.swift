@@ -2,30 +2,33 @@ import Foundation
 import SwiftyJSON
 
 public struct Order {
-    public let id: String
+    public enum Status: String {
+        case pending
+        case ordered
+        case delivered
+    }
+
+    public let customer: String
     public let productName: String
-    public var buyPrice: Double
-    public var sellPrice: Double
-    public var quantity: Int
-    public var isOrdered: Bool
-    public var isDelivered: Bool
+    public let quantity: Int
+    public let buyPrice: Double
+    public let sellPrice: Double
+    public let status: Status
 
     public init(
-        id: String,
+        customer: String,
         productName: String,
         buyPrice: Double,
-        sellPrice: Double = 0,
+        sellPrice: Double,
         quantity: Int = 1,
-        isOrdered: Bool = false,
-        isDelivered: Bool = false
+        status: Status = .pending
     ) {
-        self.id = id
+        self.customer = customer
         self.productName = productName
         self.buyPrice = buyPrice
         self.sellPrice = sellPrice
         self.quantity = quantity
-        self.isOrdered = isOrdered
-        self.isDelivered = isDelivered
+        self.status = status
     }
 
 }
@@ -33,37 +36,38 @@ public struct Order {
 extension Order: Equatable {}
 
 public func ==(lhs: Order, rhs: Order) -> Bool {
-    return lhs.id == rhs.id && lhs.productName == rhs.productName && lhs.buyPrice == rhs.buyPrice && lhs.quantity == rhs.quantity && lhs.isOrdered == rhs.isOrdered && lhs.isDelivered == rhs.isDelivered
+    return lhs.customer == rhs.customer &&
+        lhs.productName == rhs.productName &&
+        lhs.buyPrice == rhs.buyPrice &&
+        lhs.sellPrice == rhs.sellPrice &&
+        lhs.quantity == rhs.quantity &&
+        lhs.status == rhs.status
 }
 
 extension Order {
-    public static func parse(json: JSON) -> Order? {
-        guard
-            let dictionary = json.dictionary,
-            let key = Array(dictionary.keys).first,
-            let orderJson = dictionary[key]
-            else { return nil }
+    public static func parse(json: JSON) throws -> Order {
+        let parsingError = PoError("Parsing Order errored")
+        guard let array = json.array else { throw parsingError }
 
-        guard let productName = orderJson["productName"].string else { return nil }
-        guard let buyPrice = orderJson["buyPrice"].double else { return nil }
+        guard let customer = array[0].string else { throw parsingError }
+        guard let productName = array[1].string else { throw parsingError }
+        guard array.count > 2, let quantityString = array[2].string, let quantity = Int(quantityString) else { throw parsingError }
+        guard array.count > 3, let buyPriceString = array[3].string, let buyPrice = Double(buyPriceString) else { throw parsingError }
+        guard array.count > 5, let sellPriceString = array[5].string?.replacingOccurrences(of: ",", with: ""), let sellPrice = Double(sellPriceString) else { throw parsingError }
 
-        var order = Order(id: key, productName: productName, buyPrice: buyPrice)
-        order.quantity = orderJson["quantity"].int ?? order.quantity
-        order.sellPrice = orderJson["sellPrice"].double ?? order.sellPrice
-        order.isOrdered = orderJson["isOrdered"].bool ?? order.isOrdered
-        order.isDelivered = orderJson["isDelivered"].bool ?? order.isDelivered
-        return order
+        let isOrdered = array.count > 8 ? array[8].stringValue : ""
+        let isDelivered = array.count > 9 ? array[9].stringValue : ""
+
+        let status: Order.Status
+        switch (isOrdered, isDelivered) {
+        case ("✅", "✅"):
+            status = .delivered
+        case ("✅", ""):
+            status = .ordered
+        default:
+            status = .pending
+        }
+
+        return Order(customer: customer, productName: productName, buyPrice: buyPrice, sellPrice: sellPrice, quantity: quantity, status: status)
     }
-
-    public var json: JSON {
-        return JSON([
-            "productName": productName,
-            "quantity": quantity,
-            "buyPrice": buyPrice,
-            "sellPrice": sellPrice,
-            "isOrdered": isOrdered,
-            "isDelivered": isDelivered,
-        ])
-    }
-    
 }

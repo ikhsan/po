@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}Orders {% endblock %}
+{% block title %}Orders{% endblock %}
 
 {% block content %}
-<div>Yo...</div>
+<ul>
+{% for order in orders %}
+<li>{{ order.productName }} x {{ order.quantity }} by {{ order.customer }}</li>
+{% endfor %}
+</ul>
 {% endblock %}

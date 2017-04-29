@@ -15,23 +15,6 @@ public func ==(lhs: Customer, rhs: Customer) -> Bool {
 
 extension Customer {
     public static func parse(json: JSON) -> Customer? {
-        guard
-            let dictionary = json.dictionary,
-            let key = Array(dictionary.keys).first,
-            let userJson = dictionary[key]
-        else { return nil }
-
-        guard let name = userJson["name"].string else { return nil }
-        guard let phone = userJson["phone"].string else { return nil }
-
-        return Customer(id: key, name: name, phone: phone)
-    }
-
-    public var json: JSON {
-        return JSON([
-            "name": name,
-            "phone": phone,
-        ])
-    }
-    
+        return nil
+    }    
 }

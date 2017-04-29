@@ -3,27 +3,28 @@ import SwiftyJSON
 
 public struct OrderController {
 
-    let api: POAPI
-    public init(api: POAPI) {
-        self.api = api
+    let sheets: Sheets
+    public init(api: Sheets) {
+        self.sheets = api
     }
 
-    public func getOrders(forCustomerId customerId: String) throws -> [Order] {
-        let ordersDictionary = try api.get(.orders(customerId: customerId)).dictionaryValue
-        let customersJson: [JSON] = ordersDictionary.reduce([]) {
-            $0 + [ JSON([ $1.key : $1.value ]) ]
+    public func getAllOrders() throws -> [Order] {
+        let json = try sheets.getValue(forSheetId: Keys.sheetsId, name: Keys.sheetOrder)
+
+        let orders: [Order] = json.arrayValue.reduce([]) { (result, json) -> [Order] in
+            var customerJson = json.arrayValue
+            if let hasNoCustomer = customerJson.first?.stringValue.isEmpty,
+                hasNoCustomer,
+                let lastCustomer = result.last?.customer
+            {
+                customerJson[0] = JSON(lastCustomer)
+            }
+
+            guard let newOrder = try? Order.parse(json: JSON(customerJson)) else { return result }
+            return result + [ newOrder ]
         }
-        let orders = customersJson.flatMap(Order.parse(json:))
 
         return orders
-    }
-
-    public func addOrder(_ order: Order, forCustomerId customerId: String) throws -> String {
-        let result = try api.post(.orders(customerId: customerId), body: order.json)
-
-        let orderId = result["name"].stringValue
-        print("Order (\(orderId)) has been created")
-        return orderId
     }
     
 }

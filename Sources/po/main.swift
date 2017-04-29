@@ -6,12 +6,10 @@ import poCore
 
 HeliumLogger.use()
 
-let api = POAPI()
-let customerController = CustomerController(api: api)
-let orderController = OrderController(api: api)
+let sheets = Sheets(apiKey: Keys.sheetsApiKey)
+let orderController = OrderController(api: sheets)
 
 let router = Router()
-
 router.all("/", middleware: StaticFileServer())
 router.add(templateEngine: StencilTemplateEngine())
 
@@ -20,16 +18,10 @@ router.get("/") { request, response, next in
     next()
 }
 
-let customerRouter = CustomerRouterFactory.create(
-    customerController: customerController,
-    orderController: orderController
-)
+let customerRouter = CustomerRouterFactory.create()
 router.all("customers", middleware: customerRouter)
 
-let orderRouter = OrderRouterFactory.create(
-    orderController: orderController,
-    customerController: customerController
-)
+let orderRouter = OrderRouterFactory.create(orderController)
 router.all("orders", middleware: orderRouter)
 
 let port = portFromEnv() ?? 8080
