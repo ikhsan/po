@@ -6,9 +6,15 @@ import poCore
 
 HeliumLogger.use()
 
+// MARK: - Setup controllers
 let sheets = Sheets(apiKey: Keys.sheetsApiKey)
-let orderController = OrderController(api: sheets)
-let customerController = CustomerController(api: sheets, orderController: orderController)
+let orderRepo = OrderRepository(sheets: sheets)
+let orderController = OrderController(orderRepository: orderRepo)
+
+let customerRepo = CustomerRepository(sheets: sheets)
+let customerController = CustomerController(customersRepo: customerRepo, ordersRepo: orderRepo)
+
+// MARK: - Router
 
 let router = Router()
 router.all("/", middleware: StaticFileServer())
@@ -19,11 +25,8 @@ router.get("/") { request, response, next in
     next()
 }
 
-let orderRouter = OrderRouterFactory.create(orderController)
-router.all("orders", middleware: orderRouter)
-
-let customerRouter = CustomerRouterFactory.create(customerController)
-router.all("customers", middleware: customerRouter)
+router.all("orders", middleware: OrderRouterFactory.create(orderController))
+router.all("customers", middleware: CustomerRouterFactory.create(customerController))
 
 let port = portFromEnv() ?? 8080
 Kitura.addHTTPServer(onPort: port, with: router)

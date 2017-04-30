@@ -19,7 +19,7 @@ class SheetsCache {
     private let timeout: TimeInterval
     private var storage: [String : TimedJSON] = [:]
 
-    init(timeout: TimeInterval = 60.0) {
+    init(timeout: TimeInterval = 120.0) {
         self.timeout = timeout
     }
 
