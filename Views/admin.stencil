@@ -4,6 +4,12 @@
 
 {% block content %}
 
+<h3>Admin</h3>
+<ul>
+    <li />Auth
+</ul>
+
+
 <h3>Order</h3>
 <ul>
     <li />List ✔️

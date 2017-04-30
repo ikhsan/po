@@ -12,6 +12,7 @@
             <h3 class="title"><a href="/">PO UK</a></h3>
         </header>
         <div class="content">
+            {% block navigation %}
             <nav>
                 <ul class="nav-list">
                     <h3>Menu</h3>
@@ -20,6 +21,8 @@
                     <li /><a href="/customers">Customers</a>
                 </ul>
             </nav>
+            {% endblock %}
+            {% block navigation %}{% endblock %}
             <main>
                 <h2 class="title">{% block title %}{% endblock %}</h2>
                 <div>{% block content %}{% endblock %}</div>
