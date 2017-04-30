@@ -14,9 +14,14 @@ public struct Customer {
 }
 
 extension Customer: Equatable {}
-
 public func ==(lhs: Customer, rhs: Customer) -> Bool {
     return lhs.name == rhs.name && lhs.phone == rhs.phone
+}
+
+extension Customer: Hashable {
+    public var hashValue: Int {
+        return self.id.djb2hash
+    }
 }
 
 extension Customer {

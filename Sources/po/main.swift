@@ -9,9 +9,9 @@ HeliumLogger.use()
 // MARK: - Setup controllers
 let sheets = Sheets(apiKey: Keys.sheetsApiKey)
 let orderRepo = OrderRepository(sheets: sheets)
-let orderController = OrderController(orderRepository: orderRepo)
-
 let customerRepo = CustomerRepository(sheets: sheets)
+
+let orderController = OrderController(ordersRepo: orderRepo, customersRepo: customerRepo)
 let customerController = CustomerController(customersRepo: customerRepo, ordersRepo: orderRepo)
 
 // MARK: - Router

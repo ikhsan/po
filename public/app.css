@@ -115,6 +115,10 @@ header .title a {
     margin: 0.3em 0;
 }
 
+.order .status {
+    width: 2em;
+}
+
 .order .quantity {
     width: 1.7em;
     margin-left: 0.2em;
@@ -126,15 +130,14 @@ header .title a {
 }
 
 .order .description .product-name {
-    font-weight: bold;
+
 }
-.order .description span:last-child {
+.order .description .product-price {
     color: #86939E;
 }
 
 .order .total {
     width: 6em;
-    font-weight: bold;
     text-align: right;
 }
 

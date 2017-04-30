@@ -43,5 +43,36 @@ extension String {
             ($0 << 5) &+ $0 &+ Int($1)
         }
     }
-
 }
+
+// MARK : - Unique orderer array
+
+extension Sequence where Iterator.Element: Hashable {
+    public func unique() -> [Iterator.Element] {
+        var seen: [Iterator.Element : Bool] = [:]
+        return self.filter { seen.updateValue(true, forKey: $0) == nil }
+    }
+}
+
+// MARK : Rupiah formatter
+
+public struct Rupiah {
+
+    private static let symbol = "Rp "
+    private static let formatter: NumberFormatter = {
+        let f = NumberFormatter()
+        f.numberStyle = .currency
+        f.minimumFractionDigits = 0
+        f.currencySymbol = symbol
+        f.currencyGroupingSeparator = "."
+        return f
+    }()
+
+    public static func render(_ amount: Double, stripped: Bool = false) -> String {
+        let number = NSNumber(value: amount)
+        let result = formatter.string(from: number) ?? ""
+        return stripped ? result.replacingOccurrences(of: symbol, with: "") : result
+    }
+    
+}
+

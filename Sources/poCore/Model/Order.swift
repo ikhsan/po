@@ -10,13 +10,10 @@ public struct Order {
 
     public let customer: String
     public let productName: String
-    public let quantity: Int
-    public let buyPrice: Double
-    public let sellPrice: Double
-    public let status: Status
-
-    public let totalBuyPrice: Double
-    public let totalSellPrice: Double
+    public var buyPrice: Double
+    public var quantity: Int
+    public var sellPrice: Double
+    public var status: Status
 
     public init(
         customer: String,
@@ -32,9 +29,6 @@ public struct Order {
         self.sellPrice = sellPrice
         self.quantity = quantity
         self.status = status
-
-        self.totalBuyPrice = buyPrice * Double(quantity)
-        self.totalSellPrice = sellPrice * Double(quantity)
     }
 
 }
@@ -57,9 +51,18 @@ extension Order {
 
         guard let customer = array[0].string else { throw parsingError }
         guard let productName = array[1].string else { throw parsingError }
-        guard array.count > 2, let quantityString = array[2].string, let quantity = Int(quantityString) else { throw parsingError }
-        guard array.count > 3, let buyPriceString = array[3].string, let buyPrice = Double(buyPriceString) else { throw parsingError }
-        guard array.count > 5, let sellPriceString = array[5].string?.replacingOccurrences(of: ",", with: ""), let sellPrice = Double(sellPriceString) else { throw parsingError }
+        guard array.count > 2,
+            let quantityString = array[2].string,
+            let quantity = Int(quantityString)
+            else { throw parsingError }
+        guard array.count > 3,
+            let buyPriceString = array[3].string,
+            let buyPrice = Double(buyPriceString)
+            else { throw parsingError }
+        guard array.count > 5,
+            let sellPriceString = array[5].string?.replacingOccurrences(of: ",", with: ""),
+            let sellPrice = Double(sellPriceString)
+            else { throw parsingError }
 
         let isOrdered = array.count > 8 ? array[8].stringValue : ""
         let isDelivered = array.count > 9 ? array[9].stringValue : ""

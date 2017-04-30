@@ -3,14 +3,22 @@ import SwiftyJSON
 
 public struct OrderController {
 
-    let orderRepository: OrderRepository
+    let ordersRepo: OrderRepository
+    let customersRepo: CustomerRepository
 
-    public init(orderRepository: OrderRepository) {
-        self.orderRepository = orderRepository
+    public init(ordersRepo: OrderRepository, customersRepo: CustomerRepository) {
+        self.ordersRepo = ordersRepo
+        self.customersRepo = customersRepo
     }
 
     public func getAllOrders() throws -> Page {
-        let orders = try orderRepository.all()
+        let orders = try ordersRepo
+            .all()
+            .flatMap { order -> OrderViewModel? in
+                guard let customer = try? customersRepo.get(name: order.customer) else { return nil }
+                return OrderViewModel(order, customer: customer)
+            }
+
         return Page(template: "orders", context: [
             "orders" : orders
         ])

@@ -1,20 +1,23 @@
 {% extends "base.html" %}
 
-{% block navigation %}{% endblock %}
 {% block title %}{{ customer.name }}{% endblock %}
 
 {% block content %}
 <p>Phone: {{ customer.phone }}</p>
 
-<section class="orders">
+<section class="orders admin">
 
   <div class="order">
-    <div class="quantity th">
-      <h4>x</h4>
+    <div class="status th">
+        <h4>?</h4>
     </div>
 
     <div class="description th">
       <h4>Item</h4>
+    </div>
+
+    <div class="quantity th">
+        <h4>x</h4>
     </div>
 
     <div class="total th">
@@ -24,20 +27,41 @@
 
   {% for order in orders %}
   <div class="order">
-    <div class="quantity">
-      <span>{{ order.quantity }}</span>
+    <div class="status">
+        <span>{{ order.status }}</span>
     </div>
 
     <div class="description">
-      <div>{{ order.productName }}</div>
-      <span>Rp. {{ order.sellPrice }}</span>
+      <div class="product-name">{{ order.productName }}</div>
+      <div class="product-price">{{ order.productPrice }}</div>
+    </div>
+
+    <div class="quantity">
+        <span>{{ order.productQuantity }}</span>
     </div>
 
     <div class="total">
-      <span>{{ order.totalSellPrice }}</span>
+      <span>{{ order.totalPrice }}</span>
     </div>
   </div>
   {% endfor %}
 
+  <div class="order">
+    <div class="status"></div>
+
+    <div class="description">
+      <strong>Total</strong>
+    </div>
+
+    <div class="quantity">
+      <strong>{{ totalItem }}</strong>
+    </div>
+
+    <div class="total">
+      <strong>{{ totalPrice }}</strong>
+    </div>
+  </div>
+
 </section>
+
 {% endblock %}

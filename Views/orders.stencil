@@ -3,15 +3,19 @@
 {% block title %}Orders{% endblock %}
 
 {% block content %}
-<section class="orders">
+<section class="orders admin">
 
   <div class="order">
-    <div class="quantity th">
-      <h4>x</h4>
+    <div class="status th">
+        <h4>?</h4>
     </div>
 
     <div class="description th">
       <h4>Item</h4>
+    </div>
+
+    <div class="quantity th">
+        <h4>x</h4>
     </div>
 
     <div class="total th">
@@ -21,18 +25,22 @@
 
   {% for order in orders %}
   <div class="order">
-    <div class="quantity">
-      <span>{{ order.quantity }}</span>
+    <div class="status">
+        <span>{{ order.status }}</span>
     </div>
 
     <div class="description">
       <div class="product-name">{{ order.productName }}</div>
-      <span>Rp. {{ order.sellPrice }}</span>
-      <div>{{ order.customer }}</div>
+      <div class="product-price">{{ order.productPrice }}</div>
+      <div><a href="/customers/{{ order.customerId }}">{{ order.customerName }}</a></div>
+    </div>
+
+    <div class="quantity">
+        <span>{{ order.productQuantity }}</span>
     </div>
 
     <div class="total">
-      <span>{{ order.totalSellPrice }}</span>
+      <span>{{ order.totalPrice }}</span>
     </div>
   </div>
   {% endfor %}
