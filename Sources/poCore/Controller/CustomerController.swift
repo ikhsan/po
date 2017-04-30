@@ -27,7 +27,7 @@ public struct CustomerController {
             .flatMap { $0.quantity }
             .reduce(0, +)
         let totalPrice = orders
-            .flatMap { $0.sellPrice }
+            .flatMap { $0.sellPrice * Double($0.quantity) }
             .reduce(0, +)
 
         return Page(template: "customer", context: [

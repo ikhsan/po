@@ -49,8 +49,14 @@ extension Order {
         let parsingError = PoError("Parsing Order errored")
         guard let array = json.array else { throw parsingError }
 
-        guard let customer = array[0].string else { throw parsingError }
-        guard let productName = array[1].string else { throw parsingError }
+        guard !array.isEmpty,
+            let customer = array[0].string,
+            !customer.isEmpty
+            else { throw parsingError }
+        guard array.count > 1,
+            let productName = array[1].string,
+            !productName.isEmpty
+            else { throw parsingError }
         guard array.count > 2,
             let quantityString = array[2].string,
             let quantity = Int(quantityString)
