@@ -7,13 +7,17 @@ public struct CustomerRouterFactory {
         let router = Router()
 
         router.get("/") { request, response, next in
-            let customers = try customerController.getAllCustomer()
-            try response.render("customers.stencil", context: [ "customers" : customers ])
+            let page = try customerController.getAllCustomer()
+            try response.renderStencilPage(page)
             next()
         }
 
-        router.get("/:customerId") { request, response, next in
-            response.send("to be implemented")
+        let customerId = "customerId"
+        router.get("/:\(customerId)") { request, response, next in
+            let id = request.parameters[customerId] ?? ""
+            
+            let page = try customerController.getCustomer(id)
+            try response.renderStencilPage(page)
             next()
         }
 

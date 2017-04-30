@@ -8,7 +8,7 @@ public struct OrderController {
         self.sheets = api
     }
 
-    public func getAllOrders() throws -> [Order] {
+    public func fetchAllOrders() throws -> [Order] {
         let json = try sheets.getValue(forSheetId: Keys.sheetsId, name: Keys.sheetOrder)
 
         let orders: [Order] = json.arrayValue.reduce([]) { (result, json) -> [Order] in
@@ -25,6 +25,11 @@ public struct OrderController {
         }
 
         return orders
+    }
+
+    public func getAllOrders() throws -> Page {
+        let orders = try fetchAllOrders()
+        return Page(template: "orders", context: [ "orders" : orders ])
     }
     
 }

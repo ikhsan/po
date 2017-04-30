@@ -7,8 +7,8 @@ public struct OrderRouterFactory {
         let router = Router()
 
         router.get("/") { request, response, next in
-            let orders = try orderController.getAllOrders()
-            try response.render("orders.stencil", context: [ "orders" : orders ])
+            let page = try orderController.getAllOrders()
+            try response.renderStencilPage(page)
             next()
         }
 
