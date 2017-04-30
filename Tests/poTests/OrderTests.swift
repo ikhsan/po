@@ -4,14 +4,14 @@ import SwiftyJSON
 
 class OrderTests: XCTestCase {
 
-    func testParse_WithInvalidJSON_ShouldReturnNil() throws {
+    func testParse_WithInvalidJSON_ShouldThrow() throws {
         let json = JSON(data: "<invalid>".data(using: .utf8)!)
         XCTAssertThrowsError(_ = try Order.parse(json: json))
     }
 
     func testParse_WithValidJSON_ShouldReturnValidUser() throws {
         let order = try Order.parse(json: JSON([
-            "Indi_exp",
+            "Indi",
             "Speedo blue",
             "3",
             "9.5",
@@ -22,11 +22,11 @@ class OrderTests: XCTestCase {
             "✅",
             "✅"
         ]))
-        let expectedOrder = Order(customer: "Indi_exp", productName: "Speedo blue", buyPrice: 9.5, sellPrice: 210_000, quantity: 3, status: .delivered)
+        let expectedOrder = Order(customer: "Indi", productName: "Speedo blue", buyPrice: 9.5, sellPrice: 210_000, quantity: 3, status: .delivered)
         XCTAssertEqual(order, expectedOrder)
     }
 
-    func testParse_WithoutStatus_SHouldReturnValidUser() throws {
+    func testParse_WithoutStatus_ShouldReturnValidUser() throws {
         let order = try Order.parse(json: JSON([
             "Sila",
             "Salicylic Acid 2",

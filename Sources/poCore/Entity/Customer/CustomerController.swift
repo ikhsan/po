@@ -3,13 +3,15 @@ import SwiftyJSON
 
 public struct CustomerController {
 
-    let api: Sheets
+    let sheets: Sheets
     public init(api: Sheets) {
-        self.api = api
+        self.sheets = api
     }
 
     public func getAllCustomer() throws -> [Customer] {
-        return []
+        let json = try sheets.getValue(forSheetId: Keys.sheetsId, name: Keys.sheetCustomer)
+        let customers = json.arrayValue.flatMap { try? Customer.parse(json: $0) }
+        return customers
     }
 
 //    public func getCustomer(_ id: String) throws -> Customer {}

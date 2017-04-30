@@ -3,11 +3,12 @@ import SwiftyJSON
 
 public struct CustomerRouterFactory {
 
-    public static func create() -> Router {
+    public static func create(_ customerController: CustomerController) -> Router {
         let router = Router()
 
         router.get("/") { request, response, next in
-            response.send("to be implemented")
+            let customers = try customerController.getAllCustomer()
+            try response.render("customers.stencil", context: [ "customers" : customers ])
             next()
         }
 

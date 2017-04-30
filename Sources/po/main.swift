@@ -8,6 +8,7 @@ HeliumLogger.use()
 
 let sheets = Sheets(apiKey: Keys.sheetsApiKey)
 let orderController = OrderController(api: sheets)
+let customerController = CustomerController(api: sheets)
 
 let router = Router()
 router.all("/", middleware: StaticFileServer())
@@ -18,7 +19,7 @@ router.get("/") { request, response, next in
     next()
 }
 
-let customerRouter = CustomerRouterFactory.create()
+let customerRouter = CustomerRouterFactory.create(customerController)
 router.all("customers", middleware: customerRouter)
 
 let orderRouter = OrderRouterFactory.create(orderController)

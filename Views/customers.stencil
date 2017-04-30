@@ -3,24 +3,12 @@
 {% block title %}Customers{% endblock %}
 
 {% block content %}
-<p>
-    <a href="/customers/add">Add Customer</a>
-</p>
-
 <ul>
     {% for customer in customers %}
     <li>
-        <a href="/customers/{{ customer.id }}">{{ customer.name }} ({{ customer.phone }})</a>
-- <a style="text-decoration:none;cursor:pointer" onclick="deleteCustomer('{{ customer.id }}','{{ customer.name }}')">🗑</a>
+        <a href="/customers/{{ customer.id }}">{{ customer.name }}</a>
     </li>
     {% endfor %}
 </ul>
 
-<script>
-function deleteCustomer(customerId, customerName) {
-    if (confirm("Are you sure you want to delete '" + customerName + "'?")) {
-        window.location = "/customers/delete/" + customerId
-    }
-}
-</script>
 {% endblock %}

@@ -4,18 +4,20 @@ import SwiftyJSON
 
 class CustomerTests: XCTestCase {
 
-    func testParse_WithInvalidJSON_ShouldReturnNil() {
-//        let json = JSON(data: "<invalid>".data(using: .utf8)!)
-//        let customer = Customer.parse(json: json)
-//        XCTAssertNil(customer)
+    func testParse_WithInvalidJSON_ShouldThrow() {
+        let json = JSON(data: "<invalid>".data(using: .utf8)!)
+        XCTAssertThrowsError(_ = try Customer.parse(json: json))
     }
 
-    func testParse_WithValidJSON_ShouldReturnValidUser() {
-//        let json = JSON.parse(string: customerFixtureData)
-//        let customer = Customer.parse(json: json)!
-//
-//        let expectedCustomer = Customer(id: "-KiCn22_ANil9wZF6Cqz", name: "Ikhsan Assaat", phone: "087654321000")
-//        XCTAssertEqual(customer, expectedCustomer)
+    func testParse_WithHeadersJSON_ShouldThrow() {
+        let json = JSON(["Customer", "Phone Number"])
+        XCTAssertThrowsError(_ = try Customer.parse(json: json))
+    }
+
+    func testParse_WithValidJSON_ShouldReturnValidUser() throws {
+        let customer = try Customer.parse(json: JSON(["Mbak dyta", "+628170003511"]))
+        let expectedCustomer = Customer(name: "Mbak dyta", phone: "+628170003511")
+        XCTAssertEqual(customer, expectedCustomer)
     }
 
 }

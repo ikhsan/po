@@ -33,3 +33,15 @@ public struct PoError: Error {
         self.message = message
     }
 }
+
+// Source : https://gist.github.com/kharrison/2355182ac03b481921073c5cf6d77a73
+// Source : http://www.cse.yorku.ca/~oz/hash.html
+extension String {
+    var djb2hash: Int {
+        let unicodeScalars = self.unicodeScalars.map { $0.value }
+        return unicodeScalars.reduce(5381) {
+            ($0 << 5) &+ $0 &+ Int($1)
+        }
+    }
+
+}
