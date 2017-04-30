@@ -37,7 +37,7 @@ header {
 }
 
 header .title {
-    padding: 0.8em 1.5em 1em;
+    padding: 0.8em 1.5em 1em 1em;
     margin: 0;
 }
 
@@ -125,7 +125,7 @@ header .title a {
     flex: 1;
 }
 
-.order .description div {
+.order .description .product-name {
     font-weight: bold;
 }
 .order .description span:last-child {
