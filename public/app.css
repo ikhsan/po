@@ -75,7 +75,7 @@ header .title a {
 
 
 .content > main {
-    padding: 0 1.5em;
+    padding: 0 1em;
     flex: 1;
 }
 
@@ -94,6 +94,49 @@ header .title a {
     }
 }
 
+
+/* -- Orders -- */
+
+.orders {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 2em;
+}
+
+@media screen and (min-width: 768px) {
+    .orders {
+        width: 35em;
+    }
+}
+
+.order {
+    display: flex;
+    margin: 0.3em 0;
+}
+
+.order .quantity {
+    width: 1.7em;
+    margin-left: 0.2em;
+    flex-shrink: 0
+}
+
+.order .description {
+    flex: 1;
+}
+
+.order .description div {
+    font-weight: bold;
+}
+.order .description span:last-child {
+    color: #86939E;
+}
+
+.order .total {
+    width: 6em;
+    font-weight: bold;
+    text-align: right;
+}
 
 
 /* -- Footer -- */

@@ -15,6 +15,9 @@ public struct Order {
     public let sellPrice: Double
     public let status: Status
 
+    public let totalBuyPrice: Double
+    public let totalSellPrice: Double
+
     public init(
         customer: String,
         productName: String,
@@ -29,6 +32,9 @@ public struct Order {
         self.sellPrice = sellPrice
         self.quantity = quantity
         self.status = status
+
+        self.totalBuyPrice = buyPrice * Double(quantity)
+        self.totalSellPrice = sellPrice * Double(quantity)
     }
 
 }

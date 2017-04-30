@@ -27,6 +27,11 @@ public struct OrderController {
         return orders
     }
 
+    public func fetchOrder(by customer: Customer) throws -> [Order] {
+        return try fetchAllOrders()
+            .filter { $0.customer == customer.name }
+    }
+
     public func getAllOrders() throws -> Page {
         let orders = try fetchAllOrders()
         return Page(template: "orders", context: [ "orders" : orders ])

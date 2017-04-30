@@ -24,9 +24,12 @@ public struct CustomerController {
         guard let customer = try fetchAllCustomers().first(where: { $0.id == id })
         else { throw PoError("Can't find customer") }
 
-        
+        let orders = try orderController.fetchOrder(by: customer)
 
-        return Page(template: "customer", context: [ "customer" : customer ])
+        return Page(template: "customer", context: [
+            "customer" : customer,
+            "orders" : orders,
+        ])
     }
 
 }

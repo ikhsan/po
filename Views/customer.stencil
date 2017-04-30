@@ -4,4 +4,39 @@
 
 {% block content %}
 <p>Phone: {{ customer.phone }}</p>
+
+<section class="orders">
+
+  <div class="order">
+    <div class="quantity th">
+      <h4>x</h4>
+    </div>
+
+    <div class="description th">
+      <h4>Item</h4>
+    </div>
+
+    <div class="total th">
+      <h4>Total (Rp.)</h4>
+    </div>
+  </div>
+
+  {% for order in orders %}
+  <div class="order">
+    <div class="quantity">
+      <span>{{ order.quantity }}</span>
+    </div>
+
+    <div class="description">
+      <div>{{ order.productName }}</div>
+      <span>Rp. {{ order.sellPrice }}</span>
+    </div>
+
+    <div class="total">
+      <span>{{ order.totalSellPrice }}</span>
+    </div>
+  </div>
+  {% endfor %}
+
+</section>
 {% endblock %}
