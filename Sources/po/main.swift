@@ -25,8 +25,8 @@ router.get("/") { request, response, next in
     next()
 }
 
-router.all("orders", middleware: OrderRouterFactory.create(orderController))
-router.all("customers", middleware: CustomerRouterFactory.create(customerController))
+router.all("orders", middleware: RouterFactory.orderRouter(orderController))
+router.all("customers", middleware: RouterFactory.customerRouter(customerController))
 
 let port = portFromEnv() ?? 8080
 Kitura.addHTTPServer(onPort: port, with: router)

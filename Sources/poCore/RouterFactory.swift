@@ -1,9 +1,9 @@
 import Kitura
 import SwiftyJSON
 
-public struct CustomerRouterFactory {
+public struct RouterFactory {
 
-    public static func create(_ customerController: CustomerController) -> Router {
+    public static func customerRouter(_ customerController: CustomerController) -> Router {
         let router = Router()
 
         router.get("/") { request, response, next in
@@ -24,11 +24,8 @@ public struct CustomerRouterFactory {
         return router
     }
     
-}
 
-public struct OrderRouterFactory {
-
-    public static func create(_ orderController: OrderController) -> Router {
+    public static func orderRouter(_ orderController: OrderController) -> Router {
         let router = Router()
 
         router.get("/") { request, response, next in
