@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block navigation %}{% endblock %}
+{% block title %}{% endblock %}
+
+{% block content %}
+<h1>🛍🛒🕶👠👜</h1>
+{% endblock %}

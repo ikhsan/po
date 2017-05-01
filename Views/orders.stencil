@@ -33,7 +33,7 @@
     <div class="description">
       <div class="product-name">{{ order.productName }}</div>
       <div class="product-price">{{ order.productPrice }}</div>
-      <div><a href="/customers/{{ order.customerId }}">{{ order.customerName }}</a></div>
+      <div><a href="/admin/customers/{{ order.customerId }}">{{ order.customerName }}</a></div>
     </div>
 
     <div class="quantity">

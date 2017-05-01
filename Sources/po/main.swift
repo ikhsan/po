@@ -22,8 +22,8 @@ router.add(templateEngine: StencilTemplateEngine())
 router.all(middleware: Session(secret: Keys.sessionSecret))
 
 RouterFactory.setupAuth(for: router)
-router.all("orders", middleware: RouterFactory.orderRouter(orderController))
-router.all("customers", middleware: RouterFactory.customerRouter(customerController))
+router.all("admin/orders", middleware: RouterFactory.orderRouter(orderController))
+router.all("admin/customers", middleware: RouterFactory.customerRouter(customerController))
 
 let port = portFromEnv() ?? 8080
 Kitura.addHTTPServer(onPort: port, with: router)

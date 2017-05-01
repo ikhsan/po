@@ -4,9 +4,11 @@
 
 {% block content %}
 
+<h5>Hey, {{ user.displayName }}</h5>
+
 <h3>Admin</h3>
 <ul>
-    <li />Auth
+    <li />Auth ✔️
 </ul>
 
 

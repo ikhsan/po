@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="login-button">
-  <a href="#"><div id="google-signin"></div></a>
+  <a href="{{ loginUrl }}"><div id="google-signin"></div></a>
 </div>
 
 <style media="screen">
