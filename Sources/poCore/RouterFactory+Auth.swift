@@ -1,4 +1,4 @@
-import Foundation
+    import Foundation
 import Kitura
 import Credentials
 import CredentialsGoogle
@@ -8,14 +8,16 @@ extension RouterFactory {
     public static func setupAuth(for router: Router) {
         let credentials = Credentials()
         let googleCredentials = CredentialsGoogle(
-            clientId: Keys.Google.clientId,
-            clientSecret: Keys.Google.secret,
-            callbackUrl: Keys.Google.callbackUrl,
+            clientId: Config.Google.clientId,
+            clientSecret: Config.Google.secret,
+            callbackUrl: Config.Google.callbackUrl,
             options: ["scope" : "email profile"]
         )
         credentials.register(plugin: googleCredentials)
         credentials.options["failureRedirect"] = "/login"
         credentials.options["successRedirect"] = "/admin"
+
+        let whitelists = WhitelistEmails(Config.emailWhitelist, logoutPath: "/logout")
 
         router.get("/") { request, response, next in
             let page = Page(template: "home", context: [:])
@@ -38,10 +40,9 @@ extension RouterFactory {
             next()
         }
 
-        router.all("/admin", middleware: credentials)
+        router.all("/admin", middleware: credentials, whitelists)
         router.get("/admin") { request, response, next in
             guard let profile = request.userProfile else {
-                try response.redirect("/login")
                 return next()
             }
 

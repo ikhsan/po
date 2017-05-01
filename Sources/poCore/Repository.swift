@@ -10,7 +10,7 @@ public class CustomerRepository {
     }
 
     public func all() throws -> [Customer] {
-        let json = try sheets.getValue(forSheetId: Keys.sheetsId, name: Keys.sheetCustomer)
+        let json = try sheets.getValue(forSheetId: Config.sheetsId, name: Config.sheetCustomer)
         return json.arrayValue.flatMap { try? Customer.parse(json: $0) }.unique()
     }
 
@@ -39,7 +39,7 @@ public class OrderRepository {
     }
 
     public func all() throws -> [Order] {
-        let json = try sheets.getValue(forSheetId: Keys.sheetsId, name: Keys.sheetOrder)
+        let json = try sheets.getValue(forSheetId: Config.sheetsId, name: Config.sheetOrder)
 
         let orders: [Order] = json.arrayValue.reduce([]) { (result, json) -> [Order] in
             var ordersJson = json.arrayValue

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Keys {
+public struct Config {
     public static let sheetsApiKey = ProcessInfo.processInfo.environment["SHEETS_API_KEY"] ?? ""
     public static let sheetsId = ProcessInfo.processInfo.environment["SHEETS_ID"] ?? ""
     public static let sheetOrder = ProcessInfo.processInfo.environment["SHEET_ORDER_NAME"] ?? ""
@@ -13,5 +13,10 @@ public struct Keys {
     }
 
     public static let sessionSecret = ProcessInfo.processInfo.environment["SESSION_SECRET"] ?? ""
+
+    public static let emailWhitelist: [String] = {
+        let emails = ProcessInfo.processInfo.environment["EMAIL_WHITELIST"] ?? ""
+        return emails.components(separatedBy: ",")
+    }()
 }
 

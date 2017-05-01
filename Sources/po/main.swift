@@ -7,7 +7,7 @@ import poCore
 HeliumLogger.use()
 
 // MARK: - Setup controllers
-let sheets = Sheets(apiKey: Keys.sheetsApiKey)
+let sheets = Sheets(apiKey: Config.sheetsApiKey)
 let orderRepo = OrderRepository(sheets: sheets)
 let customerRepo = CustomerRepository(sheets: sheets)
 
@@ -19,7 +19,7 @@ let customerController = CustomerController(customersRepo: customerRepo, ordersR
 let router = Router()
 router.all("/", middleware: StaticFileServer())
 router.add(templateEngine: StencilTemplateEngine())
-router.all(middleware: Session(secret: Keys.sessionSecret))
+router.all(middleware: Session(secret: Config.sessionSecret))
 
 RouterFactory.setupAuth(for: router)
 router.all("admin/orders", middleware: RouterFactory.orderRouter(orderController))

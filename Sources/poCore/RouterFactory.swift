@@ -7,11 +7,6 @@ public struct RouterFactory {
         let router = Router()
 
         router.get("/") { request, response, next in
-            guard request.userProfile != nil else {
-                try response.redirect("/login")
-                return next()
-            }
-
             let page = try customerController.getAllCustomers()
             try response.renderStencilPage(page)
             next()
@@ -56,11 +51,6 @@ public struct RouterFactory {
         let router = Router()
 
         router.get("/") { request, response, next in
-            guard request.userProfile != nil else {
-                try response.redirect("/login")
-                return next()
-            }
-
             let page = try orderController.getAllOrders()
             try response.renderStencilPage(page)
             next()
