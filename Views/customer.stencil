@@ -7,8 +7,8 @@
 
 <p>
   Share link:
-  <a href="{{ publicLink }}">Link</a> -
-  <a href="#">via Whatsapp</a>
+  <a href="{{ publicLink }}">Link</a>
+  {{ whatsappLink }}
 </p>
 
 <section class="orders admin">

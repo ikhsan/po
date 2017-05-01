@@ -54,7 +54,7 @@ extension Sequence where Iterator.Element: Hashable {
     }
 }
 
-// MARK : Rupiah formatter
+// MARK : - Rupiah formatter
 
 public struct Rupiah {
 
@@ -76,3 +76,11 @@ public struct Rupiah {
     
 }
 
+// MARK : - Send via WA
+
+public struct Whatsapp {
+    public static func send(_ message: String, phone: String) -> String {
+        guard let encoded = message.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return "" }
+        return "https://api.whatsapp.com/send?text=\(encoded)&phone=\(phone)"
+    }
+}

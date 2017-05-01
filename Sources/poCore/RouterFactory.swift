@@ -20,6 +20,14 @@ public struct RouterFactory {
             if let hostUrl = URL(string: "/", relativeTo: request.urlURL) {
                 let publicLink = hostUrl.appendingPathComponent("s/\(id)")
                 page.setValue(publicLink.absoluteString, for: "publicLink")
+
+                if let customer = page.context["customer"] as? Customer {
+                    let link = Whatsapp.send(
+                        "\(customer.name.capitalized), rekapnya ada di sini ya 👉 \(publicLink.absoluteString)",
+                        phone: customer.phone
+                    )
+                    page.setValue("- <a href=\"\(link)\">via Whatsapp</a>", for: "whatsappLink")
+                }
             }
 
             try response.renderStencilPage(page)
