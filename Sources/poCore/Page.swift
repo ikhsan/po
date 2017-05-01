@@ -4,7 +4,11 @@ import KituraTemplateEngine
 
 public struct Page {
     let template: String
-    let context: [String : Any]
+    var context: [String : Any]
+
+    public mutating func setValue(_ value: Any, for key: String) {
+        context[key] = value
+    }
 }
 
 extension RouterResponse {

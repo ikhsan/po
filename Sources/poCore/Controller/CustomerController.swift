@@ -18,11 +18,11 @@ public struct CustomerController {
         ])
     }
 
-    public func getCustomer(_ id: String) throws -> Page {
+    public func getCustomer(_ id: String, isPublicLink: Bool = false) throws -> Page {
         let customer = try customersRepo.get(id: id)
         let orders = try ordersRepo.all(by: customer)
-
         let orderViewModels = orders.map { OrderViewModel($0, customer: customer) }
+
         let totalItem = orders
             .flatMap { $0.quantity }
             .reduce(0, +)
@@ -30,12 +30,15 @@ public struct CustomerController {
             .flatMap { $0.sellPrice * Double($0.quantity) }
             .reduce(0, +)
 
-        return Page(template: "customer", context: [
+        let template = !isPublicLink ? "customer" : "public_customer"
+        let context: [String : Any] = [
             "customer" : customer,
             "orders" : orderViewModels,
             "totalItem" : totalItem,
-            "totalPrice" : Rupiah.render(totalPrice, stripped: true),
-        ])
+            "totalPrice" : Rupiah.render(totalPrice, stripped: true)
+        ]
+
+        return Page(template: template, context: context)
     }
 
 }

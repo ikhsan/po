@@ -1,17 +1,11 @@
 {% extends "base.html" %}
 
+{% block navigation %}{% endblock %}
 {% block title %}{{ customer.name }}{% endblock %}
 
 {% block content %}
-<p>Phone: {{ customer.phone }}</p>
 
-<p>
-  Share link:
-  <a href="{{ publicLink }}">Link</a> -
-  <a href="#">via Whatsapp</a>
-</p>
-
-<section class="orders admin">
+<section class="orders">
   <div class="order">
     <div class="status th">
         <h4>?</h4>
