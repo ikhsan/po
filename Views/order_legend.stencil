@@ -1,0 +1,21 @@
+<section class="order-legend">
+  <h5>Order Legend</h5>
+  <ul>
+    <li>📦 : Delivered</li>
+    <li>💳 : Ordered</li>
+    <li>❓ : Pending order</li>
+  </ul>
+</section>
+
+<style media="screen">
+  .order-legend h5 {
+    margin-bottom: 0;
+  }
+  .order-legend ul {
+    padding-left: 0;
+  }
+  .order-legend li {
+    list-style: none;
+  }
+
+</style>

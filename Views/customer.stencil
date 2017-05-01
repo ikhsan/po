@@ -6,7 +6,6 @@
 <p>Phone: {{ customer.phone }}</p>
 
 <section class="orders admin">
-
   <div class="order">
     <div class="status th">
         <h4>?</h4>
@@ -63,5 +62,7 @@
   </div>
 
 </section>
+
+{% include 'order_legend.stencil' %}
 
 {% endblock %}

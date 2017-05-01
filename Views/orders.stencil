@@ -3,6 +3,7 @@
 {% block title %}Orders{% endblock %}
 
 {% block content %}
+
 <section class="orders admin">
 
   <div class="order">
@@ -46,4 +47,7 @@
   {% endfor %}
 
 </section>
+
+{% include 'order_legend.stencil' %}
+
 {% endblock %}
