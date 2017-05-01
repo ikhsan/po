@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block navigation %}{% endblock %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="login-button">
+  <a href="#"><div id="google-signin"></div></a>
+</div>
+
+<style media="screen">
+
+  .login-button {
+    margin-bottom: 2em;
+  }
+
+  #google-signin {
+    background-image: url(btn_google_signin_dark_normal_web.png);
+    background-repeat: no-repeat;
+    background-size: 191px 46px;
+    width: 191px;
+    height: 46px;
+  }
+
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    #google-signin {
+      background-image: url(btn_google_signin_dark_normal_web@2x.png);
+    }
+  }
+
+</style>
+
+{% endblock %}

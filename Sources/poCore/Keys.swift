@@ -9,6 +9,9 @@ public struct Keys {
     public struct Google {
         public static let clientId = ProcessInfo.processInfo.environment["GOOGLE_CLIENT_ID"] ?? ""
         public static let secret = ProcessInfo.processInfo.environment["GOOGLE_SECRET"] ?? ""
+        public static let callbackUrl = ProcessInfo.processInfo.environment["GOOGLE_CALLBACK_URL"] ?? ""
     }
+
+    public static let sessionSecret = ProcessInfo.processInfo.environment["SESSION_SECRET"] ?? ""
 }
 

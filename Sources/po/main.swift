@@ -1,7 +1,7 @@
 import Kitura
 import KituraStencil
+import KituraSession
 import HeliumLogger
-import SwiftyJSON
 import poCore
 
 HeliumLogger.use()
@@ -19,12 +19,9 @@ let customerController = CustomerController(customersRepo: customerRepo, ordersR
 let router = Router()
 router.all("/", middleware: StaticFileServer())
 router.add(templateEngine: StencilTemplateEngine())
+router.all(middleware: Session(secret: Keys.sessionSecret))
 
-router.get("/") { request, response, next in
-    try response.render("admin.stencil", context: [:])
-    next()
-}
-
+RouterFactory.setupAuth(for: router)
 router.all("orders", middleware: RouterFactory.orderRouter(orderController))
 router.all("customers", middleware: RouterFactory.customerRouter(customerController))
 
