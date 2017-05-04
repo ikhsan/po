@@ -5,6 +5,7 @@ public class OrderViewModel {
     private let customer: Customer
 
     public let status: String
+    public let statusClass: String
     public let productName: String
     public let productPrice: String
     public let productQuantity: String
@@ -16,6 +17,7 @@ public class OrderViewModel {
         self.order = order
 
         self.status = OrderViewModel.renderStatus(order.status)
+        self.statusClass = order.status.rawValue
         self.productName = order.productName
         self.productPrice = Rupiah.render(order.sellPrice)
         self.productQuantity = "\(order.quantity)"

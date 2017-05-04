@@ -4,6 +4,16 @@
 
 {% block content %}
 
+{% include 'order_legend.stencil' %}
+
+<h5>Filters</h5>
+<select id="selectOrder" onchange="updateList(this.value)">
+  <option value="all">All</option>
+  <option value="pending">❓ Pending</option>
+  <option value="ordered">💳 Ordered</option>
+  <option value="delivered">📦 Delivered</option>
+</select>
+
 <section class="orders admin">
 
   <div class="order">
@@ -25,7 +35,7 @@
   </div>
 
   {% for order in orders %}
-  <div class="order">
+  <div class="order line-item {{ order.statusClass }}">
     <div class="status">
         <span>{{ order.status }}</span>
     </div>
@@ -48,6 +58,25 @@
 
 </section>
 
-{% include 'order_legend.stencil' %}
+{% endblock %}
+
+{% block script %}
+
+<script type="text/javascript">
+  function hasClass( target, className ) {
+    return new RegExp('(\\s|^)' + className + '(\\s|$)').test(target.className);
+  }
+
+  function updateList(status) {
+    var lineItems = document.getElementsByClassName('line-item');
+    Array.prototype.forEach.call(lineItems, function(lineItem, index) {
+      if (hasClass(lineItem, status) || status === 'all') {
+        lineItem.style.display = 'flex';
+      } else {
+        lineItem.style.display = 'none';
+      }
+    });
+  }
+</script>
 
 {% endblock %}
