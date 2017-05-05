@@ -54,7 +54,25 @@ extension Sequence where Iterator.Element: Hashable {
     }
 }
 
-// MARK : - Rupiah formatter
+// MARK : - Formatter
+
+public struct PaymentDate {
+
+    private static let formatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "dd/MM/yyyy"
+        return f
+    }()
+
+    public static func render(_ date: Date) -> String {
+        return formatter.string(from: date)
+    }
+
+    public static func encode(_ string: String) -> Date {
+        return formatter.date(from: string) ?? Date()
+    }
+
+}
 
 public struct Rupiah {
 
