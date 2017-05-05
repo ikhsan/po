@@ -14,9 +14,9 @@
   <option value="delivered">📦 Delivered</option>
 </select>
 
-<section class="orders admin">
+<section class="order-list">
 
-  <div class="order">
+  <div class="order-item">
     <div class="status th">
         <h4>?</h4>
     </div>
@@ -35,7 +35,7 @@
   </div>
 
   {% for order in orders %}
-  <div class="order line-item {{ order.statusClass }}">
+  <div class="order-item line-item {{ order.statusClass }}">
     <div class="status">
         <span>{{ order.status }}</span>
     </div>
