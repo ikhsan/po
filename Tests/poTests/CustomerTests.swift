@@ -1,6 +1,6 @@
 import XCTest
 import SwiftyJSON
-@testable import poCore
+import poCore
 
 class CustomerTests: XCTestCase {
 
