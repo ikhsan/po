@@ -46,3 +46,19 @@ public class CustomersOrdersViewModel {
         self.order = order
     }
 }
+
+public class PaymentViewModel {
+    private let payment: Payment
+    private let customer: Customer
+
+    public let date: String
+    public let deposit: String
+
+    public init(_ payment: Payment, customer: Customer) {
+        self.payment = payment
+        self.customer = customer
+
+        self.deposit = Rupiah.render(payment.deposit, stripped: true)
+        self.date = PaymentDate.render(payment.date)
+    }
+}

@@ -5,10 +5,12 @@ public struct CustomerController {
 
     let customersRepo: CustomerRepository
     let ordersRepo: OrderRepository
+    let paymentRepo: PaymentRepository
 
-    public init(customersRepo: CustomerRepository, ordersRepo: OrderRepository) {
+    public init(customersRepo: CustomerRepository, ordersRepo: OrderRepository, paymentRepo: PaymentRepository) {
         self.customersRepo = customersRepo
         self.ordersRepo = ordersRepo
+        self.paymentRepo = paymentRepo
     }
 
     public func getAllCustomers() throws -> Page {
@@ -31,12 +33,23 @@ public struct CustomerController {
             .reduce(0, +)
 
         let template = !isPublicLink ? "customer" : "public_customer"
-        let context: [String : Any] = [
+        var context: [String : Any] = [
             "customer" : customer,
             "orders" : orderViewModels,
             "totalItem" : totalItem,
             "totalPrice" : Rupiah.render(totalPrice, stripped: true)
         ]
+
+        if (!isPublicLink) {
+            let payments = try paymentRepo.all(by: customer)
+            context["payments"] = payments.map { PaymentViewModel($0, customer: customer) }
+
+            let totalPayment: Double = payments.map { $0.deposit }.reduce(0, +)
+            context["totalPayment"] = Rupiah.render(totalPayment, stripped: true)
+
+            let totalDebt = totalPrice - totalPayment
+            context["totalDebt"] = Rupiah.render(totalDebt, stripped: true)
+        }
 
         return Page(template: template, context: context)
     }
