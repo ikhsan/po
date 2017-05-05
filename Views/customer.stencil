@@ -11,64 +11,112 @@
   {{ whatsappLink }}
 </p>
 
-<section class="orders admin">
-  <div class="order">
-    <div class="status th">
+<section class="order">
+  <section class="order-list admin">
+    <div class="order-item">
+      <div class="status th">
         <h4>?</h4>
-    </div>
+      </div>
 
-    <div class="description th">
-      <h4>Item</h4>
-    </div>
+      <div class="description th">
+        <h4>Item</h4>
+      </div>
 
-    <div class="quantity th">
+      <div class="quantity th">
         <h4>x</h4>
+      </div>
+
+      <div class="total th">
+        <h4>Total (Rp.)</h4>
+      </div>
     </div>
 
-    <div class="total th">
-      <h4>Total (Rp.)</h4>
-    </div>
-  </div>
+    {% for order in orders %}
+    <div class="order-item">
+      <div class="status">
+          <span>{{ order.status }}</span>
+      </div>
 
-  {% for order in orders %}
-  <div class="order">
-    <div class="status">
-        <span>{{ order.status }}</span>
-    </div>
+      <div class="description">
+        <div class="product-name">{{ order.productName }}</div>
+        <div class="product-price">{{ order.productPrice }}</div>
+      </div>
 
-    <div class="description">
-      <div class="product-name">{{ order.productName }}</div>
-      <div class="product-price">{{ order.productPrice }}</div>
-    </div>
-
-    <div class="quantity">
+      <div class="quantity">
         <span>{{ order.productQuantity }}</span>
+      </div>
+
+      <div class="total">
+        <span>{{ order.totalPrice }}</span>
+      </div>
+    </div>
+    {% endfor %}
+
+    <div class="order-item">
+      <div class="status"></div>
+
+      <div class="description">
+        <strong>Total</strong>
+      </div>
+
+      <div class="quantity">
+        <strong>{{ totalItem }}</strong>
+      </div>
+
+      <div class="total">
+        <strong>{{ totalPrice }}</strong>
+      </div>
+    </div>
+  </section>
+
+  {% include 'order_legend.stencil' %}
+</section>
+
+<section class="payment">
+  <h3>💰 Payments</h3>
+
+  <div class="payment-list">
+    <div class="payment-item">
+      <div class="date th">
+        <h4>Date</h4>
+      </div>
+
+      <div class="deposit th">
+        <h4>Deposit (Rp.)</h4>
+      </div>
     </div>
 
-    <div class="total">
-      <span>{{ order.totalPrice }}</span>
-    </div>
-  </div>
-  {% endfor %}
+    <div class="payment-item">
+      <div class="date th">
+        <span>01/01/2017</span>
+      </div>
 
-  <div class="order">
-    <div class="status"></div>
-
-    <div class="description">
-      <strong>Total</strong>
+      <div class="deposit th">
+        <span>100000</span>
+      </div>
     </div>
 
-    <div class="quantity">
-      <strong>{{ totalItem }}</strong>
+    <div class="payment-item">
+      <div class="date">
+        <strong>Total deposit</strong>
+      </div>
+
+      <div class="deposit">
+        <strong>1_000_000</strong>
+      </div>
     </div>
 
-    <div class="total">
-      <strong>{{ totalPrice }}</strong>
+    <div class="payment-item">
+      <div class="date">
+        <strong>Payment left</strong>
+      </div>
+
+      <div class="deposit">
+        <strong>1_000_000</strong>
+      </div>
     </div>
   </div>
 
 </section>
-
-{% include 'order_legend.stencil' %}
 
 {% endblock %}

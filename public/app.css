@@ -97,7 +97,31 @@ header .title a {
 
 /* -- Orders -- */
 
-.orders {
+section.order {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-legend {
+    order: -1;
+}
+
+@media screen and (min-width: 768px) {
+    section.order {
+        display: flex;
+        flex-direction: row;
+    }
+
+    section.order > *:not(:last-child) {
+        margin-right: 3em;
+    }
+
+    .order-legend {
+        order: 1;
+    }
+}
+
+.order-list {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -105,41 +129,70 @@ header .title a {
 }
 
 @media screen and (min-width: 768px) {
-    .orders {
+    .order-list {
         width: 35em;
     }
 }
 
-.order {
+.order-item {
     display: flex;
     margin: 0.3em 0;
 }
 
-.order .status {
+.order-item .status {
     width: 2em;
 }
 
-.order .quantity {
+.order-item .quantity {
     width: 1.7em;
     margin-left: 0.2em;
     flex-shrink: 0
 }
 
-.order .description {
+.order-item .description {
     flex: 1;
 }
 
-.order .description .product-name {
+.order-item .description .product-name {
 
 }
-.order .description .product-price {
+.order-item .description .product-price {
     color: #86939E;
 }
 
-.order .total {
-    width: 6em;
+.order-item .total {
+    width: 10em;
     text-align: right;
 }
+
+
+/* -- Payment -- */
+
+.payment-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 2em;
+}
+
+@media screen and (min-width: 768px) {
+    width: 35em;
+}
+
+.payment-item {
+    display: flex;
+    margin: 0.3em 0;
+}
+
+.payment-item .date {
+    flex: 1;
+}
+
+.payment-item .deposit {
+    width: 10em;
+    text-align: right;
+}
+
 
 
 /* -- Footer -- */

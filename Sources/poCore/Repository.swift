@@ -64,3 +64,25 @@ public class OrderRepository {
     }
     
 }
+
+public class PaymentRepository {
+
+    let sheets: Sheets
+
+    public init(sheets: Sheets) {
+        self.sheets = sheets
+    }
+
+    public func all(by customer: Customer? = nil) throws -> [Payment] {
+        let payments = try sheets.getValue(forSheetId: Config.sheetsId, name: Config.sheetPayment)
+            .arrayValue
+            .flatMap { try? Payment.parse(json: $0) }
+
+        if let customer = customer {
+            return payments.filter { $0.name.lowercased() == customer.name.lowercased() }
+        }
+
+        return payments
+    }
+
+}
