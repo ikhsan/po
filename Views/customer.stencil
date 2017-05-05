@@ -100,7 +100,7 @@
 
     <div class="payment-item">
       <div class="date">
-        <strong>Total payment</strong>
+        <strong>Total deposit</strong>
       </div>
 
       <div class="deposit">
@@ -111,6 +111,7 @@
     <div class="payment-item">
       <div class="date">
         <strong>Payment left</strong>
+        <div class="calculation">({{ totalPrice }} - {{ totalPayment }})</div>
       </div>
 
       <div class="deposit">

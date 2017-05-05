@@ -59,7 +59,7 @@ header .title a {
 
 .content > nav {
     margin: 0;
-    padding: 0 1.5em;
+    padding: 0 1em;
     flex: 0 0 10em;
 }
 
@@ -176,7 +176,9 @@ section.order {
 }
 
 @media screen and (min-width: 768px) {
-    width: 35em;
+    .payment-list {
+        width: 35em;
+    }
 }
 
 .payment-item {
@@ -188,9 +190,17 @@ section.order {
     flex: 1;
 }
 
+.payment-item .date .calculation {
+    color: #86939E;
+}
+
 .payment-item .deposit {
     width: 10em;
     text-align: right;
+}
+
+.payment-item:last-child .deposit {
+    align-self: flex-end;
 }
 
 
