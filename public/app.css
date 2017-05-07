@@ -102,7 +102,7 @@ section.order {
     flex-direction: column;
 }
 
-.order-legend {
+.order-legend, .transaction-summary {
     order: -1;
 }
 
@@ -119,6 +119,11 @@ section.order {
     .order-legend {
         order: 1;
     }
+
+    .transaction-summary {
+        order: 1;
+    }
+
 }
 
 .order-list {

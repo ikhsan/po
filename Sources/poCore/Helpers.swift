@@ -104,6 +104,26 @@ public struct Rupiah {
     
 }
 
+public struct Pound {
+
+    private static let symbol = "£"
+    private static let formatter: NumberFormatter = {
+        let f = NumberFormatter()
+        f.numberStyle = .currency
+        f.minimumFractionDigits = 2
+        f.maximumFractionDigits = 2
+        f.currencySymbol = symbol
+        return f
+    }()
+
+    public static func render(_ amount: Double, stripped: Bool = false) -> String {
+        let number = NSNumber(value: amount)
+        let result = formatter.string(from: number) ?? ""
+        return stripped ? result.replacingOccurrences(of: symbol, with: "") : result
+    }
+
+}
+
 // MARK : - Send via WA
 
 public struct Whatsapp {

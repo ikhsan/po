@@ -4,63 +4,110 @@
 
 {% block content %}
 
-{% include 'order_legend.stencil' %}
+<section class="order">
+  <section class="order-list">
 
-<h5>Filters</h5>
-<select id="selectOrder" onchange="updateList(this.value)">
-  <option value="all">All</option>
-  <option value="pending">❓ Pending</option>
-  <option value="ordered">💳 Ordered</option>
-  <option value="delivered">📦 Delivered</option>
-</select>
+    <h5>Filters</h5>
+    <select id="selectOrder" onchange="updateList(this.value)">
+      <option value="all">All</option>
+      <option value="pending">❓ Pending</option>
+      <option value="ordered">💳 Ordered</option>
+      <option value="delivered">📦 Delivered</option>
+    </select>
 
-<section class="order-list">
+    <div class="order-item">
+      <div class="status th">
+          <h4>?</h4>
+      </div>
 
-  <div class="order-item">
-    <div class="status th">
-        <h4>?</h4>
+      <div class="description th">
+        <h4>Item</h4>
+      </div>
+
+      <div class="quantity th">
+          <h4>x</h4>
+      </div>
+
+      <div class="total th">
+        <h4>Total (Rp.)</h4>
+      </div>
     </div>
 
-    <div class="description th">
-      <h4>Item</h4>
+    {% for order in orders %}
+    <div class="order-item line-item {{ order.statusClass }}">
+      <div class="status">
+          <span>{{ order.status }}</span>
+      </div>
+
+      <div class="description">
+        <div class="product-name">{{ order.productName }}</div>
+        <div class="product-price">{{ order.productPrice }}</div>
+        <div><a href="/admin/customers/{{ order.customerId }}">{{ order.customerName }}</a></div>
+      </div>
+
+      <div class="quantity">
+          <span>{{ order.productQuantity }}</span>
+      </div>
+
+      <div class="total">
+        <span>{{ order.totalPrice }}</span>
+      </div>
+    </div>
+    {% endfor %}
+
+  </section>
+
+  <section class='transaction-summary'>
+    <h3>Payment Summary</h3>
+
+    <div class="transaction-summary-item">
+      <div class="heading">
+        💸 Ordered transaction
+      </div>
+      <div class="amount">
+        {{ orderedTransaction }}
+      </div>
     </div>
 
-    <div class="quantity th">
-        <h4>x</h4>
+    <div class="transaction-summary-item">
+      <div class="heading">
+        💷 Pending transaction
+      </div>
+      <div class="amount">
+        {{ pendingTransaction }}
+      </div>
     </div>
 
-    <div class="total th">
-      <h4>Total (Rp.)</h4>
-    </div>
-  </div>
-
-  {% for order in orders %}
-  <div class="order-item line-item {{ order.statusClass }}">
-    <div class="status">
-        <span>{{ order.status }}</span>
+    <div class="transaction-summary-item">
+      <div class="heading">
+        💰 Total transaction
+      </div>
+      <div class="total">
+        {{ totalTransaction }}
+      </div>
     </div>
 
-    <div class="description">
-      <div class="product-name">{{ order.productName }}</div>
-      <div class="product-price">{{ order.productPrice }}</div>
-      <div><a href="/admin/customers/{{ order.customerId }}">{{ order.customerName }}</a></div>
-    </div>
-
-    <div class="quantity">
-        <span>{{ order.productQuantity }}</span>
-    </div>
-
-    <div class="total">
-      <span>{{ order.totalPrice }}</span>
-    </div>
-  </div>
-  {% endfor %}
-
+  </section>
 </section>
 
 {% endblock %}
 
 {% block script %}
+
+<style media="screen">
+  .transaction-summary-item {
+    margin-bottom: 1em;
+  }
+
+  .transaction-summary-item .amount {
+    margin-top: 0.1em;
+    color: #86939E;
+  }
+
+  .transaction-summary-item .total {
+    font-weight: bold;
+  }
+</style>
 
 <script type="text/javascript">
   function hasClass( target, className ) {
