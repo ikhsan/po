@@ -73,7 +73,7 @@
 </section>
 
 <section class="payment">
-  <h3>💰 Payments</h3>
+  <h3 style="margin-bottom:0">💰 Payments</h3>
 
   <div class="payment-list">
     <div class="payment-item">
@@ -119,7 +119,6 @@
       </div>
     </div>
   </div>
-
 </section>
 
 {% endblock %}

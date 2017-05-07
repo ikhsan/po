@@ -1,6 +1,30 @@
 import XCTest
 import poCore
 
+class PaymentViewModelTests: XCTestCase {
+
+    var payment: Payment!
+    var customer: Customer!
+
+    override func setUp() {
+        super.setUp()
+
+        customer = Customer(name: "John Doe", phone: "+44 87654321000")
+        payment = Payment(date: "04/05/2017", name: "John Doe", deposit: 500_000)
+    }
+
+    func testDate() {
+        let subject = PaymentViewModel(payment, customer: customer)
+        XCTAssertEqual(subject.date, "4 May 2017")
+    }
+
+    func testDeposit() {
+        let subject = PaymentViewModel(payment, customer: customer)
+        XCTAssertEqual(subject.deposit, "500.000")
+    }
+
+}
+
 class OrderViewModelTests: XCTestCase {
 
     var order: Order!

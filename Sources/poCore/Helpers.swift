@@ -64,8 +64,18 @@ public struct PaymentDate {
         return f
     }()
 
+    private static let mediumFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "d MMM yyyy"
+        return f
+    }()
+
     public static func render(_ date: Date) -> String {
         return formatter.string(from: date)
+    }
+
+    public static func renderMediumDate(_ date: Date) -> String {
+        return mediumFormatter.string(from: date)
     }
 
     public static func encode(_ string: String) -> Date {

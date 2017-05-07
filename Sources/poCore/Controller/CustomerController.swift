@@ -40,16 +40,14 @@ public struct CustomerController {
             "totalPrice" : Rupiah.render(totalPrice, stripped: true)
         ]
 
-        if (!isPublicLink) {
-            let payments = try paymentRepo.all(by: customer)
-            context["payments"] = payments.map { PaymentViewModel($0, customer: customer) }
+        let payments = try paymentRepo.all(by: customer)
+        context["payments"] = payments.map { PaymentViewModel($0, customer: customer) }
 
-            let totalPayment: Double = payments.map { $0.deposit }.reduce(0, +)
-            context["totalPayment"] = Rupiah.render(totalPayment, stripped: true)
+        let totalPayment: Double = payments.map { $0.deposit }.reduce(0, +)
+        context["totalPayment"] = Rupiah.render(totalPayment, stripped: true)
 
-            let totalDebt = totalPrice - totalPayment
-            context["totalDebt"] = Rupiah.render(totalDebt, stripped: true)
-        }
+        let totalDebt = totalPrice - totalPayment
+        context["totalDebt"] = Rupiah.render(totalDebt, stripped: true)
 
         return Page(template: template, context: context)
     }

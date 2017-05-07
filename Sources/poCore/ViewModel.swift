@@ -59,6 +59,6 @@ public class PaymentViewModel {
         self.customer = customer
 
         self.deposit = Rupiah.render(payment.deposit, stripped: true)
-        self.date = PaymentDate.render(payment.date)
+        self.date = PaymentDate.renderMediumDate(payment.date)
     }
 }
